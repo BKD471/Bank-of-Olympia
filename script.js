@@ -30,28 +30,35 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-const message = document.createElement("div");
-message.classList.add("cookie-message");
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+const section1 = document.querySelector("#section--1");
 
-message.innerHTML =
-  "We use cookied for improved functionality and analytics. <button class='btn btn--close-cookie'> Got it!</button>";
+btnScrollTo.addEventListener("click", (e) => {
+  const s1coords = section1.getBoundingClientRect();
 
-const header = document.querySelector(".header");
-//header.prepend(message);
-//header.append(message); // a unique dom element can occur only single time
-//header.append(message.cloneNode(true)); // to add same dom multiple times clone it
+  //console.log(s1coords);
 
-// header.before(message);
-//header.after(message);
+  // console.log(e.target.getBoundingClientRect());
 
-//delete
+  //console.log("current scroll x/y", window.pageXOffset, window.pageYOffset);
 
-// document.querySelector(".btn--close-cookie").addEventListener("click", () => {
-//   message.remove();
-// });
+  // console.log(
+  //   "Height/width ViewPort",
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // );
+  // scrolling
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
+  //old school
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: "smooth",
+  // });
 
-// header.insertAdjacentElement("beforeend", message);
-
-// document.querySelector(".btn--close-cookie").addEventListener("click", () => {
-//   message.remove();
-// });
+  // daddy cool
+  section1.scrollIntoView({ behavior: "smooth" });
+});

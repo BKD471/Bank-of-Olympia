@@ -1,0 +1,118 @@
+const message = document.createElement("div");
+message.classList.add("cookie-message");
+
+message.innerHTML =
+  "We use cookied for improved functionality and analytics. <button class='btn btn--close-cookie'> Got it!</button>";
+
+const header = document.querySelector(".header");
+
+
+
+//header.prepend(message);
+//header.append(message); // a unique dom element can occur only single time
+//header.append(message.cloneNode(true)); // to add same dom multiple times clone it
+
+// header.before(message);
+//header.after(message);
+
+//delete
+
+// document.querySelector(".btn--close-cookie").addEventListener("click", () => {
+//   message.remove();
+// });
+
+// header.insertAdjacentElement("beforeend", message);
+
+// document.querySelector(".btn--close-cookie").addEventListener("click", () => {
+//   message.remove();
+// });
+
+
+const message = document.createElement("div");
+message.classList.add("cookie-message");
+
+message.innerHTML =
+  "We use cookied for improved functionality and analytics. <button class='btn btn--close-cookie'> Got it!</button>";
+
+const header = document.querySelector(".header");
+
+// header.prepend(message);
+//header.append(message); // a unique dom element can occur only single time
+//header.append(message.cloneNode(true)); // to add same dom multiple times clone it
+
+//header.before(message);
+header.after(message);
+
+//delete
+
+document.querySelector(".btn--close-cookie").addEventListener("click", () => {
+  message.remove();
+});
+
+//style
+
+message.style.backgroundColor = "#37383d";
+message.style.width = "120%";
+
+console.log(getComputedStyle(message).color);
+console.log(getComputedStyle(message).height);
+console.log(getComputedStyle(message).fontWeight);
+
+message.style.height =
+  Number.parseFloat(getComputedStyle(message).height, 10) + 30 + "px";
+console.log(getComputedStyle(message).height);
+
+//chnging the value of css var from js file
+document.documentElement.style.setProperty("--color-primary", "steelblue");
+message.style.setProperty("color", "orange");
+console.log(getComputedStyle(message).color);
+
+// changing atributes
+const logo = document.querySelector(".nav__logo");
+console.log(logo.alt);
+console.log(logo.src);
+console.log(logo.className);
+logo.alt = "Beautiful Logo ";
+
+//non standard
+console.log(logo.designer);
+console.log(logo.getAttribute("designer"));
+logo.setAttribute("companys", "banist");
+console.log(logo.src);
+console.log(logo.getAttribute("src"));
+
+const link = document.querySelector(".nav__link--btn");
+console.log(link.href);
+console.log(link.getAttribute("href"));
+
+//data attributes
+console.log(logo.dataset.versionNumber);
+
+//classes
+logo.classList.add("b", "z");
+logo.classList.remove("b", "z");
+logo.classList.toggle("b");
+logo.classList.contains("b");
+
+
+
+
+const h1 = document.querySelector("h1");
+const div = document.querySelector(".header__title");
+
+const alertH1 = () => {
+  console.log("Tada");
+   h1.removeEventListener("mouseenter", alertH1);
+};
+
+
+//event bubbling
+div.addEventListener("mouseenter", () => {
+  console.log("from div");
+});
+
+h1.addEventListener("mouseenter", alertH1);
+
+// setTimeout(() => {
+//   h1.removeEventListener("mouseenter", alertH1);
+// }, 3000);

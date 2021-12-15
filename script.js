@@ -105,3 +105,15 @@ const handleMouseOverOut = function (event) {
 // passing an argument into handler function
 nav.addEventListener("mouseover", handleMouseOverOut.bind(0.5));
 nav.addEventListener("mouseout", handleMouseOverOut.bind(1));
+
+////////////////////////////////////////////
+// StickY Navigation
+
+const initialCoord = section1.getBoundingClientRect();
+//console.log(initialCoord);
+
+window.addEventListener("scroll", (event) => {
+  console.log(section1.getBoundingClientRect());
+  if (window.scrollY > initialCoord.top) nav.classList.add("sticky");
+  else nav.classList.remove("sticky");
+});

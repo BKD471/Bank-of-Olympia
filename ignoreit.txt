@@ -255,3 +255,11 @@ console.log(h1.parentElement.children);
   //     tc.classList.add("operations__content--active");
   //   }
   // });
+
+  // nav.addEventListener("mouseover", (event) => {
+//   handleMouseOverOut(event, 0.5);
+// });
+
+// nav.addEventListener("mouseout", (event) => {
+//   handleMouseOverOut(event, 1);
+// });

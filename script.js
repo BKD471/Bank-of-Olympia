@@ -82,3 +82,26 @@ tabsContainer.addEventListener("click", (event) => {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add("operations__content--active");
 });
+
+//Menu Fade Animation
+const nav = document.querySelector(".nav");
+
+const handleMouseOverOut = function (event) {
+  // this refers to 0, 1  i.e the value that bind passes
+  if (event.target.classList.contains("nav__link")) {
+    const link = event.target;
+    const siblings = link.closest(".nav").querySelectorAll(".nav__link");
+    const logo = link.closest(".nav").querySelector("img");
+
+    siblings.forEach((sb) => {
+      if (sb !== link) {
+        // sb.style.transition = "0.4s";
+        sb.style.opacity = this;
+      }
+    });
+    logo.style.opacity = this;
+  }
+};
+// passing an argument into handler function
+nav.addEventListener("mouseover", handleMouseOverOut.bind(0.5));
+nav.addEventListener("mouseout", handleMouseOverOut.bind(1));

@@ -113,7 +113,6 @@ const initialCoord = section1.getBoundingClientRect();
 //console.log(initialCoord);
 
 window.addEventListener("scroll", (event) => {
-  console.log(section1.getBoundingClientRect());
   if (window.scrollY > initialCoord.top) nav.classList.add("sticky");
   else nav.classList.remove("sticky");
 });

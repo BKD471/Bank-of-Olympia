@@ -1,12 +1,14 @@
 "use strict";
 
-///////////////////////////////////////
-// Modal window
-
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const btnCloseModal = document.querySelector(".btn--close-modal");
 const btnsOpenModal = document.querySelectorAll(".btn--show-modal");
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+const section1 = document.querySelector("#section--1");
+
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -30,35 +32,53 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-const btnScrollTo = document.querySelector(".btn--scroll-to");
-const section1 = document.querySelector("#section--1");
+//btn Scrolling;
 
 btnScrollTo.addEventListener("click", (e) => {
   const s1coords = section1.getBoundingClientRect();
-
-  //console.log(s1coords);
-
-  // console.log(e.target.getBoundingClientRect());
-
-  //console.log("current scroll x/y", window.pageXOffset, window.pageYOffset);
-
-  // console.log(
-  //   "Height/width ViewPort",
-  //   document.documentElement.clientHeight,
-  //   document.documentElement.clientWidth
-  // );
-  // scrolling
-  // window.scrollTo(
-  //   s1coords.left + window.pageXOffset,
-  //   s1coords.top + window.pageYOffset
-  // );
-  //old school
-  // window.scrollTo({
-  //   left: s1coords.left + window.pageXOffset,
-  //   top: s1coords.top + window.pageYOffset,
-  //   behavior: "smooth",
-  // });
-
-  // daddy cool
   section1.scrollIntoView({ behavior: "smooth" });
+});
+
+/////////////////////////////////////////
+//page naviga
+
+//event delegat
+//1 Add event listener to common parent
+//2 determine what element originate the event
+
+document.querySelector(".nav__links").addEventListener("click", (event) => {
+  event.preventDefault();
+  // selecting only the clicked element
+
+  // Matching strategy  check whether class has nav__link
+  if (event.target.classList.contains("nav__link")) {
+    const id = event.target.getAttribute("href");
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  }
+});
+
+////////////////////////////////////
+//tabbed component
+const tabs = document.querySelectorAll(".operations__tab");
+const tabsContainer = document.querySelector(".operations__tab-container");
+const tabsContent = document.querySelectorAll(".operations__content");
+
+tabsContainer.addEventListener("click", (event) => {
+  const clicked = event.target.closest(".operations__tab");
+
+  //Guard Clause
+  if (!clicked) return;
+
+  //active tab
+  tabs.forEach((tb) => tb.classList.remove("operations__tab--active"));
+  clicked.classList.toggle("operations__tab--active");
+
+  //active tabsContent
+  tabsContent.forEach((tc) =>
+    tc.classList.remove("operations__content--active")
+  );
+
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add("operations__content--active");
 });

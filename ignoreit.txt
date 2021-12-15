@@ -116,3 +116,142 @@ h1.addEventListener("mouseenter", alertH1);
 // setTimeout(() => {
 //   h1.removeEventListener("mouseenter", alertH1);
 // }, 3000);
+
+const randomInt = (max, min) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+const randomColor = () =>
+  `rgb(${randomInt(255, 0)},${randomInt(255, 0)},${randomInt(255, 0)})`;
+
+// document.querySelector(".nav__link").addEventListener("click", function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log("Link", e.target, e.currentTarget); // same for this element
+//   console.log(e.currentTarget === this); /// returns true
+// });
+
+// document.querySelector(".nav__links").addEventListener("click", function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log("Container", e.target, e.currentTarget);
+// });
+
+// document.querySelector(".nav").addEventListener(
+//   "click",
+//   function (e) {
+//     this.style.backgroundColor = randomColor();
+//     console.log("Main Nav", e.target, e.currentTarget);
+//   }
+// );
+
+// enables listening to event at capturing phase
+// document.querySelector(".nav").addEventListener(
+//   "click",
+//   function (e) {
+//     this.style.backgroundColor = randomColor();
+//     console.log("Main Nav", e.target, e.currentTarget);
+//   },
+//   true
+// );
+
+// using arrow function
+ document.querySelector(".nav__link").addEventListener("click", (e) => {
+
+  e.currentTarget.style.backgroundColor = randomColor();
+  console.log("Link", e.target, e.currentTarget); // same for this element
+  console.log(e.currentTarget === this); /// returns true
+});
+
+document.querySelector(".nav__links").addEventListener("click", (e) => {
+  e.currentTarget.style.backgroundColor = randomColor();
+  console.log("Container", e.target, e.currentTarget);
+});
+
+document.querySelector(".nav").addEventListener("click", (e) => {
+  e.currentTarget.style.backgroundColor = randomColor();
+  console.log("Main Nav", e.target, e.currentTarget);
+});
+
+
+btnScrollTo.addEventListener("click", (e) => {
+  const s1coords = section1.getBoundingClientRect();
+
+  //console.log(s1coords);
+
+  // console.log(e.target.getBoundingClientRect());
+
+  //console.log("current scroll x/y", window.pageXOffset, window.pageYOffset);
+
+  // console.log(
+  //   "Height/width ViewPort",
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // );
+  // scrolling
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
+  //old school
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: "smooth",
+  // });
+
+  // daddy cool
+  section1.scrollIntoView({ behavior: "smooth" });
+});
+
+
+// document.querySelectorAll(".nav__link").forEach((curr) => {
+//   curr.addEventListener("click", (event) => {
+//     event.preventDefault();
+
+//     const id = event.currentTarget.getAttribute("href");
+
+//     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+//   });
+// });
+
+
+////////////////////////////////////////////////////
+//Dom Traversing
+const h1 = document.querySelector("h1");
+
+//going downward
+console.log(h1.querySelectorAll(".highlight"));
+console.log(h1.childNodes);
+console.log(h1.children);
+h1.firstElementChild.style.color = "steelblue";
+h1.lastElementChild.style.color = "red";
+
+//going upward
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+h1.closest(".header").style.background = "var(--gradient-secondary)";
+
+// queryselector seraches for child deep in dom tree and closest searches parent far up in dom tree
+
+//going sideways
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+//to get all the siblings  move up to parent element and get  al children
+console.log(h1.parentElement.children);
+
+
+// minimize all the siblings of h1 by 50% except h1;
+[...h1.parentElement.children].forEach((el) => {
+  if (el !== h1) el.style.transform = "scale(0.5)";
+});
+
+
+// const id = clicked.getAttribute("data-tab");
+  // tabsContent.forEach((tc) =>
+  //   tc.classList.remove("operations__content--active")
+  // );
+  // tabsContent.forEach((tc) => {
+  //   const cl = `operations__content--${id}`;
+
+  //   if (tc.classList.contains(`${cl}`)) {
+  //     tc.classList.add("operations__content--active");
+  //   }
+  // });

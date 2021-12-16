@@ -107,12 +107,48 @@ nav.addEventListener("mouseover", handleMouseOverOut.bind(0.5));
 nav.addEventListener("mouseout", handleMouseOverOut.bind(1));
 
 ////////////////////////////////////////////
-// StickY Navigation
+//Sticky Navigation: IntersectionObserver AP
 
-const initialCoord = section1.getBoundingClientRect();
-//console.log(initialCoord);
+const header = document.querySelector(".header");
+const navHeight = nav.getBoundingClientRect().height;
 
-window.addEventListener("scroll", (event) => {
-  if (window.scrollY > initialCoord.top) nav.classList.add("sticky");
+const obsCallback = (entries, observer) => {
+  const [entry] = entries;
+  if (!entry.isIntersecting) nav.classList.add("sticky");
   else nav.classList.remove("sticky");
+};
+
+const obsOptions = {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+};
+
+const observer = new IntersectionObserver(obsCallback, obsOptions);
+observer.observe(header);
+
+/////////////////////////////////////////////
+//Reveal Section
+
+const allSections = document.querySelectorAll(".section");
+
+const revealSection = (entries, observer) => {
+  const [entry] = entries;
+
+  console.log(entries);
+
+  if (!entry.isIntersecting) return;
+
+  entry.target.classList.remove("section--hidden");
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach((section) => {
+  sectionObserver.observe(section);
+  section.classList.add("section--hidden");
 });

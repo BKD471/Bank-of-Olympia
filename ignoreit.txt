@@ -263,3 +263,13 @@ console.log(h1.parentElement.children);
 // nav.addEventListener("mouseout", (event) => {
 //   handleMouseOverOut(event, 1);
 // });
+
+// StickY Navigation  old way
+
+// const initialCoord = section1.getBoundingClientRect();
+// //console.log(initialCoord);
+
+// window.addEventListener("scroll", (event) => {
+//   if (window.scrollY > initialCoord.top) nav.classList.add("sticky");
+//   else nav.classList.remove("sticky");
+// });

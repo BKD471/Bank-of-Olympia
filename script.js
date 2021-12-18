@@ -210,16 +210,6 @@ const slider = () => {
       .classList.add("dots__dot--active");
   };
 
-  dotContainer.addEventListener("click", (event) => {
-    if (event.target.classList.contains("dots__dot")) {
-      //const slide = event.target.dataset.slide;
-      const { slide } = event.target.dataset;
-
-      gotoSlide(slide);
-      activateDot(slide);
-    }
-  });
-
   const nextSlide = () => {
     if (currSlide === maxSlides - 1) {
       currSlide = 0;
@@ -255,6 +245,16 @@ const slider = () => {
     // short circuiting
     event.key === "ArrowRight" && nextSlide();
     event.key === "ArrowLeft" && previousSlide();
+  });
+
+  dotContainer.addEventListener("click", (event) => {
+    if (event.target.classList.contains("dots__dot")) {
+      //const slide = event.target.dataset.slide;
+      const { slide } = event.target.dataset;
+
+      gotoSlide(slide);
+      activateDot(slide);
+    }
   });
 };
 

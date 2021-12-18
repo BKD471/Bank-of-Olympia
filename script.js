@@ -97,7 +97,6 @@ const handleMouseOverOut = function (event) {
 
     siblings.forEach((sb) => {
       if (sb !== link) {
-        // sb.style.transition = "0.4s";
         sb.style.opacity = this;
       }
     });
@@ -136,9 +135,7 @@ const allSections = document.querySelectorAll(".section");
 
 const revealSection = (entries, observer) => {
   const [entry] = entries;
-
   if (!entry.isIntersecting) return;
-
   entry.target.classList.remove("section--hidden");
   observer.unobserve(entry.target);
 };
@@ -150,7 +147,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach((section) => {
   sectionObserver.observe(section);
-  // section.classList.add("section--hidden");
+  section.classList.add("section--hidden");
 });
 
 /////////////////////////////////////////
@@ -160,13 +157,9 @@ const imgTargets = document.querySelectorAll("img[data-src]");
 
 const loadImg = (entries, observer) => {
   const [entry] = entries;
-
   if (!entry.isIntersecting) return;
-
   // replace src with data-src
-
   entry.target.src = entry.target.dataset.src;
-
   entry.target.addEventListener("load", () => {
     entry.target.classList.remove("lazy-img");
   });
@@ -183,44 +176,86 @@ imgTargets.forEach((img) => imgObserver.observe(img));
 
 ///////////////////////////////////////////////////////////////////
 //slider
+const slider = () => {
+  const slides = document.querySelectorAll(".slide");
+  const btnLeft = document.querySelector(".slider__btn--left");
+  const btnRight = document.querySelector(".slider__btn--right");
+  const dotContainer = document.querySelector(".dots");
+  let currSlide = 0;
+  const maxSlides = slides.length;
 
-const slides = document.querySelectorAll(".slide");
-const btnLeft = document.querySelector(".slider__btn--left");
-const btnRight = document.querySelector(".slider__btn--right");
+  const gotoSlide = (slide) => {
+    slides.forEach((s, i) => {
+      s.style.transform = `translateX(${100 * (i - slide)}%)`;
+    });
+  };
 
-let currSlide = 0;
-const maxSlides = slides.length;
-// const slider = document.querySelector(".slider");
+  const createDots = () => {
+    slides.forEach((_, i) => {
+      dotContainer.insertAdjacentHTML(
+        "beforeend",
+        `<button class='dots__dot' data-slide="${i}"></button>`
+      );
+    });
+  };
 
-// slider.style.transform = `scale(0.3) translateX(-1300px)`;
-// slider.style.overflow = "visible";
+  const activateDot = (slide) => {
+    const dots = document.querySelectorAll(".dots__dot");
+    dots.forEach((dt) => {
+      dt.classList.remove("dots__dot--active");
+    });
 
-const gotoSlide = (slide) => {
-  slides.forEach((s, i) => {
-    s.style.transform = `translateX(${100 * (i - slide)}%)`;
+    document
+      .querySelector(`.dots__dot[data-slide="${slide}"]`)
+      .classList.add("dots__dot--active");
+  };
+
+  dotContainer.addEventListener("click", (event) => {
+    if (event.target.classList.contains("dots__dot")) {
+      //const slide = event.target.dataset.slide;
+      const { slide } = event.target.dataset;
+
+      gotoSlide(slide);
+      activateDot(slide);
+    }
+  });
+
+  const nextSlide = () => {
+    if (currSlide === maxSlides - 1) {
+      currSlide = 0;
+    } else {
+      currSlide++;
+    }
+    gotoSlide(currSlide);
+    activateDot(currSlide);
+  };
+
+  const previousSlide = () => {
+    if (currSlide === 0) {
+      currSlide = maxSlides - 1;
+    } else {
+      currSlide--;
+    }
+    gotoSlide(currSlide);
+    activateDot(currSlide);
+  };
+
+  const init = () => {
+    gotoSlide(0);
+    createDots();
+    activateDot(0);
+  };
+  init();
+
+  //Event handlers
+  btnRight.addEventListener("click", nextSlide);
+  btnLeft.addEventListener("click", previousSlide);
+
+  document.addEventListener("keydown", (event) => {
+    // short circuiting
+    event.key === "ArrowRight" && nextSlide();
+    event.key === "ArrowLeft" && previousSlide();
   });
 };
 
-gotoSlide(0);
-
-const nextSlide = () => {
-  if (currSlide === maxSlides - 1) {
-    currSlide = 0;
-  } else {
-    currSlide++;
-  }
-  gotoSlide(currSlide);
-};
-
-const previousSlide = () => {
-  if (currSlide === 0) {
-    currSlide = maxSlides - 1;
-  } else {
-    currSlide--;
-  }
-  gotoSlide(currSlide);
-};
-
-btnRight.addEventListener("click", nextSlide);
-
-btnLeft.addEventListener("click", previousSlide);
+slider();

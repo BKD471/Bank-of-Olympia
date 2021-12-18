@@ -259,6 +259,7 @@ const slider = () => {
 
 slider();
 
+// DOM lifecycle events
 // document.addEventListener("DOMContentLoaded", (e) => {
 //   console.log("HTML parsed and DOM tree has been completed", e);
 // });

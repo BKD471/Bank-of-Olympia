@@ -251,7 +251,6 @@ const slider = () => {
     if (event.target.classList.contains("dots__dot")) {
       //const slide = event.target.dataset.slide;
       const { slide } = event.target.dataset;
-
       gotoSlide(slide);
       activateDot(slide);
     }

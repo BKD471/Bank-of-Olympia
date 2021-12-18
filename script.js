@@ -258,3 +258,17 @@ const slider = () => {
 };
 
 slider();
+
+// document.addEventListener("DOMContentLoaded", (e) => {
+//   console.log("HTML parsed and DOM tree has been completed", e);
+// });
+
+// window.addEventListener("load", (e) => {
+//   console.log("Fully loaded including css and images", e);
+// });
+
+// window.addEventListener("beforeunload", (event) => {
+//   event.preventDefault();
+//   console.log(event);
+//   return (event.returnValue = "");
+// });
